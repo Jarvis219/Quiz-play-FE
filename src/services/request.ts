@@ -22,7 +22,7 @@ export const publicRequest = axios.create({
   },
 })
 
-request.interceptors.request.use((config) => {
+publicRequest.interceptors.request.use((config) => {
   // @ts-ignore
   config.headers = {
     ...config.headers,
@@ -32,7 +32,7 @@ request.interceptors.request.use((config) => {
   return config
 })
 
-request.interceptors.response.use(
+publicRequest.interceptors.response.use(
   function (response) {
     return response
   },
@@ -44,6 +44,7 @@ request.interceptors.response.use(
       })
       return
     }
+
     const { message } = error.response.data
     Emitter.emit('toast', { message, type: ENotificationType.ERROR })
     return Promise.reject(error)
