@@ -1,21 +1,29 @@
 import { publicRequest, request } from '@/services'
-import { TRequest } from '@/types'
 import { ILoginWithUsername, IReisterViaUsername } from '@/types/auth'
+import { IUser } from '@/types/user'
+import { getJwtToken } from '@/utils'
 
 export class Auth {
-  static async init(req: TRequest) {
+  static async init(): Promise<IUser> {
     const { data } = await request.get('/auth/init/me', {
       headers: {
-        Authorization: `Bearer ${req.cookies['jwtToken']}`,
+        Authorization: `Bearer ${getJwtToken()}`,
       },
     })
     return data
   }
 
-  static async loginWithUsername({ username, password }: ILoginWithUsername) {
+  static async loginWithUsername({ username, password }: ILoginWithUsername): Promise<IUser> {
     const { data } = await publicRequest.post('/auth/login/username', {
       username,
       password,
+    })
+    return data
+  }
+
+  static async loginWithGoogle({ token }: { token: string }): Promise<IUser> {
+    const { data } = await publicRequest.post('/auth/login/google', {
+      token,
     })
     return data
   }
@@ -28,7 +36,7 @@ export class Auth {
     phone_number,
     address,
     avatar,
-  }: IReisterViaUsername) {
+  }: IReisterViaUsername): Promise<IUser> {
     const { data } = await publicRequest.post('/auth/register/username', {
       full_name,
       email,
