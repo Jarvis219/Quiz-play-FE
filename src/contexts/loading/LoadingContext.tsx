@@ -20,27 +20,11 @@ const LoadingProvider = ({ children }: { children: JSX.Element }) => {
       {isLoading && (
         <>
           <div className={`${styles['overlay']}`} />
-          <section className={`${styles['container']}`}>
-            <div className={`${styles['scene']}`}>
-              <div className={`${styles['shadow']}`} />
-              <div className={`${styles['jumper']}`}>
-                <div className={`${styles['spinner']}`}>
-                  <div className={`${styles['scaler']}`}>
-                    <div className={`${styles['loader']}`}>
-                      <div className={`${styles['cuboid']}`}>
-                        <div className={`${styles['cuboid__side']}`} />
-                        <div className={`${styles['cuboid__side']}`} />
-                        <div className={`${styles['cuboid__side']}`} />
-                        <div className={`${styles['cuboid__side']}`} />
-                        <div className={`${styles['cuboid__side']}`} />
-                        <div className={`${styles['cuboid__side']}`} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <div className={`${styles['loader']}`}>
+            <div className={`${styles['one']} ${styles['inner']}`} />
+            <div className={`${styles['two']} ${styles['inner']}`} />
+            <div className={`${styles['three']} ${styles['inner']}`} />
+          </div>
         </>
       )}
     </LoadingContext.Provider>
