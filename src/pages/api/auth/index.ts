@@ -48,4 +48,16 @@ export class Auth {
     })
     return data
   }
+
+  static async sendEmailVerification(): Promise<boolean> {
+    const data = await publicRequest.post('/auth/send-email-verify')
+    return !!data
+  }
+
+  static async verifyEmail({ token }: { token: string }): Promise<IUser> {
+    const { data } = await publicRequest.post('/auth/verify-email', {
+      token,
+    })
+    return data
+  }
 }
