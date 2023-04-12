@@ -36,3 +36,29 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+/**
+* custom tailwindcss classes for switch antd
+* The following code is used to style the switch component used in the
+* settings page. The switch component is used to toggle the notification
+**/
+
+.ant-switch.ant-switch-checked {
+  @apply bg-cyan-400 h-9;
+}
+
+.ant-switch {
+  @apply h-9;
+}
+
+.ant-switch .ant-switch-inner {
+  @apply py-2;
+}
+
+.ant-switch .ant-switch-handle {
+  @apply top-[10px];
+}
+
+.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  @apply bg-cyan-500;
+}
