@@ -60,3 +60,16 @@ export function isEmpty(value: any): boolean {
     return false
   }
 }
+
+/**
+ * Shorten `text` to `maxLength` characters, appending '...' if the text was shortened.
+ * @param text The text to shorten.
+ * @param maxLength The maximum length of the text.
+ */
+
+export function shortenText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text
+  }
+  return text.slice(0, maxLength) + '...'
+}

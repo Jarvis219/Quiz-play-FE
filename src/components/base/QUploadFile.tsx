@@ -1,72 +1,115 @@
+import { MAX_SIZE, SIZE_DEFAULT, STATUS_DEFAULT, TYPE_DEFAULT } from '@/constants'
+import { checkSizeImage, checkTypeImage, getBase64, shortenText } from '@/utils'
 import { PlusOutlined } from '@ant-design/icons'
-import { Modal, Upload, UploadFile, UploadProps } from 'antd'
+import { Modal, Upload, UploadFile } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { memo, useMemo, useState } from 'react'
+import { Control, Controller, UseFormSetError } from 'react-hook-form'
+import QHelperText from './QHelperText'
 
 interface IQUploadFileProps {
-  onChange?: (fileList: UploadFile[]) => void
-  value?: UploadFile[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>
+  setError: UseFormSetError<any>
+  name: string
   maxCount?: number
   round?: boolean
+  defaultValue?: UploadFile[]
 }
 
-const QUploadFile = ({ value, onChange, maxCount = 1, round = false }: IQUploadFileProps) => {
+const QUploadFile = ({ maxCount = 3, round = false, name, control, setError, defaultValue }: IQUploadFileProps) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const [fileList, setFileList] = useState<UploadFile[]>(value || [])
 
-  const getBase64 = useMemo(
+  const transformImageControl = useMemo(
     () =>
-      (file: RcFile): Promise<string> =>
-        new Promise((resolve, reject) => {
-          const reader = new FileReader()
-          reader.readAsDataURL(file)
-          reader.onload = () => resolve(reader.result as string)
-          reader.onerror = (error) => reject(error)
-        }),
-    []
-  )
-
-  const handleChange: UploadProps['onChange'] = useMemo(
-    () =>
-      ({ fileList: newFileList }) => {
-        setFileList(newFileList)
-        onChange && onChange(newFileList)
-      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (file: any[]): UploadFile[] =>
+        file.map((item) => ({
+          uid: item.uid || item,
+          name: item.name || item,
+          status: item.status || STATUS_DEFAULT,
+          url: item.url || item,
+          type: item.type || TYPE_DEFAULT,
+          size: item.size || SIZE_DEFAULT,
+          originFileObj: item.originFileObj || item,
+        })),
     []
   )
 
   const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
+    if (typeof file.url !== 'string' || (!file.url && !file.preview)) {
       file.preview = await getBase64(file.originFileObj as RcFile)
     }
 
-    setPreviewImage(file.url || (file.preview as string))
+    setPreviewImage(file?.preview || file?.url || '')
     setPreviewOpen(true)
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
   }
 
-  const handleCancel = () => setPreviewOpen(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange: any = useMemo(
+    () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ({ fileList, onChange }: { fileList: any; onChange: (...event: any[]) => void }) => {
+        for (const i of fileList) {
+          if (!checkTypeImage(i)) {
+            setError(name, {
+              type: 'image',
+              message: 'File type is not image',
+            })
+            return
+          }
+
+          if (!checkSizeImage(i)) {
+            setError(name, {
+              type: 'image',
+              message: `File size is too large. Maximum size is ${MAX_SIZE}`,
+            })
+            return
+          }
+        }
+
+        onChange(fileList)
+      },
+    []
+  )
 
   return (
     <div>
-      <Upload
-        listType={round ? 'picture-circle' : 'picture-card'}
-        fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChange}>
-        {maxCount && fileList.length >= maxCount ? null : (
-          <div className='text-sm'>
-            <PlusOutlined />
-            <p>Upload</p>
-          </div>
+      <Controller
+        control={control}
+        name={name}
+        defaultValue={defaultValue}
+        render={({ field, fieldState: { error } }) => (
+          <>
+            <Upload
+              listType={round ? 'picture-circle' : 'picture-card'}
+              fileList={transformImageControl(field.value)}
+              onPreview={handlePreview}
+              multiple={maxCount > 1}
+              onChange={(e) => handleChange({ fileList: e.fileList, onChange: field.onChange })}>
+              {maxCount && field.value.length >= maxCount ? null : (
+                <div className='text-sm'>
+                  <PlusOutlined />
+                  <p>Upload</p>
+                </div>
+              )}
+            </Upload>
+            <QHelperText>{error?.message}</QHelperText>
+          </>
         )}
-      </Upload>
-      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-        <img alt='example' style={{ width: '100%' }} src={previewImage} />
+      />
+
+      <Modal
+        open={previewOpen}
+        title={shortenText(previewTitle, 50)}
+        footer={null}
+        onCancel={() => setPreviewOpen(false)}>
+        <img alt={previewTitle} style={{ width: '100%' }} src={previewImage} loading='lazy' />
       </Modal>
     </div>
   )
