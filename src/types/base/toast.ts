@@ -30,7 +30,7 @@ export type NotificationPlacement =
   | ENotificationPlacement.BOTTOM_LEFT
   | ENotificationPlacement.BOTTOM_RIGHT
 
-export const TOAST_DEFAULT_DURATION = 3000
+export const TOAST_DEFAULT_DURATION = 3 // seconds
 
 export type IToast = {
   type: NotificationType
