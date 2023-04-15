@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['https://lh3.googleusercontent.com', 'https://firebasestorage.googleapis.com'],
+    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
   },
 }
 
