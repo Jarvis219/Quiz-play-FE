@@ -1,9 +1,13 @@
 import { Auth } from '@/pages/api/auth'
 import { IUser } from '@/types/user'
-import { getJwtToken, setJwtToken } from '@/utils'
+import { getJwtToken, removeJwtToken, setJwtToken } from '@/utils'
+import dynamic from 'next/dynamic'
 import { ReactNode, createContext, useContext, useState } from 'react'
 import { useEffectOnce } from 'usehooks-ts'
 import { useLoadingContext } from '../loading/LoadingContext'
+
+const SignUpModal = dynamic(() => import('@/components/auth/SignUpModal'), { ssr: false })
+const SignInModal = dynamic(() => import('@/components/auth/SignInModal'), { ssr: false })
 
 interface IAuthContext {
   user?: IUser
@@ -50,6 +54,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const logout = () => {
     setUser(undefined)
+    removeJwtToken()
   }
 
   return (
@@ -61,6 +66,8 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
         logout,
       }}>
       {children}
+      <SignInModal />
+      <SignUpModal />
     </AuthContext.Provider>
   )
 }

@@ -1,3 +1,5 @@
+import QButton from '@/components/base/QButton'
+import GoogleIcon from '@/components/base/icons/GoogleIcon'
 import { ENotificationType } from '@/types'
 import { AppConfig } from '@/utils'
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google'
@@ -32,10 +34,11 @@ const LoginButton = ({ onLoginSuccess }: IGoogleButtonProps) => {
   }) as () => void
 
   return (
-    <button
+    <QButton
       onClick={login}
-      className='text-xs left-5 border border-gray-800 rounded-3xl flex justify-center items-center gap-1 w-full py-1.5'>
+      icon={<GoogleIcon />}
+      className='!text-lg rounded-3xl w-full py-2 flex justify-center items-center'>
       Sign In with Google
-    </button>
+    </QButton>
   )
 }

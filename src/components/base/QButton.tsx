@@ -11,6 +11,7 @@ interface QButtonProps extends Omit<FloatButtonProps, 'type'> {
   type?: EButtonType
   danger?: boolean
   tooltip?: string
+  onClick?: () => void
 }
 
 const QButton = ({

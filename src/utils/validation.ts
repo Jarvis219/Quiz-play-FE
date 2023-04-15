@@ -1,11 +1,11 @@
-export const validationMessage = {
+export const validationMessages = {
   required: (field: string) => `${field} is required`,
   email: 'Please enter a valid email',
-  password: 'Password must be at least 8 characters',
-  confirmPassword: 'Password does not match',
-  username: 'Username must be at least 6 characters',
-  fullName: 'Full name must be at least 6 characters',
-  phoneNumber: 'Phone number must be at least 10 characters',
-  address: 'Address must be at least 6 characters',
+  password: (minLeng: number) => `Password must be at least ${minLeng} characters`,
+  passwordsNotMatch: 'Password does not match',
+  username: (minLeng: number) => `Username must be at least ${minLeng} characters`,
+  fullName: (minLeng: number) => `Full name must be at least ${minLeng} characters`,
+  phoneNumber: (minLeng: number) => `Phone number must be at least ${minLeng} characters`,
+  address: (minLeng: number) => `Address must be at least ${minLeng} characters`,
   avatar: 'Avatar must be an image',
 }

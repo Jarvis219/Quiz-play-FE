@@ -8,8 +8,10 @@ export enum ENotificationType {
 }
 
 export enum ENotificationPlacement {
+  TOP = 'top',
   TOP_LEFT = 'topLeft',
   TOP_RIGHT = 'topRight',
+  BOTTOM = 'bottom',
   BOTTOM_LEFT = 'bottomLeft',
   BOTTOM_RIGHT = 'bottomRight',
 }
@@ -21,8 +23,10 @@ export type NotificationType =
   | ENotificationType.ERROR
 
 export type NotificationPlacement =
+  | ENotificationPlacement.TOP
   | ENotificationPlacement.TOP_LEFT
   | ENotificationPlacement.TOP_RIGHT
+  | ENotificationPlacement.BOTTOM
   | ENotificationPlacement.BOTTOM_LEFT
   | ENotificationPlacement.BOTTOM_RIGHT
 

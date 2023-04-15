@@ -21,6 +21,7 @@ interface IQInputProps {
   maxLength?: number
   className?: string
   tooltip?: string
+  sizeMarginBottom?: string
 }
 
 const QInput = ({
@@ -36,6 +37,7 @@ const QInput = ({
   required = false,
   disabled = false,
   tooltip,
+  sizeMarginBottom = '0',
 }: IQInputProps) => {
   const classes = `w-full py-2.5 ${className}`
   const inputProps = {
@@ -75,10 +77,18 @@ const QInput = ({
       name={name}
       defaultValue={defaultValue}
       render={({ field, fieldState: { error } }) => (
-        <Form.Item label={label} name={name} required={required} initialValue={defaultValue} tooltip={tooltip}>
+        <Form.Item
+          label={label}
+          name={name}
+          required={required}
+          initialValue={defaultValue}
+          tooltip={tooltip}
+          style={{
+            marginBottom: sizeMarginBottom,
+          }}>
           <>
             {inputElement({ field, error })}
-            <QHelperText>{error?.message}</QHelperText>
+            {error?.message && <QHelperText>{error.message}</QHelperText>}
           </>
         </Form.Item>
       )}

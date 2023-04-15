@@ -21,7 +21,7 @@ const initToast: IToast = {
   icon: null,
   style: {},
   className: '',
-  placement: ENotificationPlacement.TOP_RIGHT,
+  placement: ENotificationPlacement.TOP,
   show: false,
 }
 
