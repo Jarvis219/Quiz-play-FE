@@ -1,3 +1,4 @@
+import { EMIITER_CODE } from '@/constants'
 import { ENotificationType } from '@/types'
 import { AppConfig, Emitter, getJwtToken } from '@/utils'
 import axios from 'axios'
@@ -38,7 +39,7 @@ publicRequest.interceptors.response.use(
   },
   function (error) {
     if (!error?.response?.data) {
-      Emitter.emit('toast', {
+      Emitter.emit(EMIITER_CODE.TOAST, {
         message: 'error when send request',
         type: ENotificationType.ERROR,
       })
@@ -46,7 +47,7 @@ publicRequest.interceptors.response.use(
     }
 
     const { message } = error.response.data
-    Emitter.emit('toast', { message, type: ENotificationType.ERROR })
+    Emitter.emit(EMIITER_CODE.TOAST, { message, type: ENotificationType.ERROR })
     return Promise.reject(error)
   }
 )

@@ -37,7 +37,7 @@ const LoginButton = ({ onLoginSuccess }: IGoogleButtonProps) => {
     <QButton
       onClick={login}
       icon={<GoogleIcon />}
-      className='!text-lg rounded-3xl w-full py-2 flex justify-center items-center'>
+      className='!text-lg rounded-3xl w-full py-2 flex justify-center items-center shadow-default'>
       Sign In with Google
     </QButton>
   )

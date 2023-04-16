@@ -8,7 +8,7 @@ import {
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { GoogleButton } from '@/contexts/auth/authGoogle'
 import { useLoadingContext } from '@/contexts/loading/LoadingContext'
-import { Auth } from '@/pages/api/auth'
+import { Auth } from '@/pages/api/user/auth'
 import { EButtonType, EInputType } from '@/types'
 import { Emitter, validationMessages } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,15 +32,21 @@ const SignInModal = () => {
   useEffect(() => {
     !isModalOpen && Emitter.on(EMIITER_CODE.SIGN_IN_MODAL, () => setIsModalOpen(true))
     isModalOpen && Emitter.on(EMIITER_CODE.SIGN_UP_MODAL, () => setIsModalOpen(false))
+    isModalOpen && Emitter.on(EMIITER_CODE.FOR_GOT_PASSWORD_MODAL, () => setIsModalOpen(false))
 
     return () => {
       Emitter.off(EMIITER_CODE.SIGN_UP_MODAL, () => setIsModalOpen(false))
       Emitter.off(EMIITER_CODE.SIGN_IN_MODAL, () => setIsModalOpen(false))
+      Emitter.off(EMIITER_CODE.FOR_GOT_PASSWORD_MODAL, () => setIsModalOpen(false))
     }
   })
 
   const handleEmitSignUpModal = (): void => {
     Emitter.emit(EMIITER_CODE.SIGN_UP_MODAL)
+  }
+
+  const handleEmitForgotPasswordModal = (): void => {
+    Emitter.emit(EMIITER_CODE.FOR_GOT_PASSWORD_MODAL)
   }
 
   const schema = z.object({
@@ -92,7 +98,7 @@ const SignInModal = () => {
               <QInput
                 control={control}
                 name='username'
-                label='Username'
+                label='Username or Email'
                 className={classesInput}
                 sizeMarginBottom={sizeMarginBottomInput}
                 placeholder='Enter username or email address'
@@ -108,19 +114,27 @@ const SignInModal = () => {
                 placeholder='Enter password'
                 required
               />
-              <div className='text-right text-sm'>
-                Don’t have an account?
+              <div className='text-sm flex justify-between'>
                 <QButton
                   type={EButtonType.text}
                   className='!text-sm px-1 text-blue-500 font-semibold'
-                  onClick={handleEmitSignUpModal}>
-                  Sign Up
+                  onClick={handleEmitForgotPasswordModal}>
+                  Forgot password?
                 </QButton>
+                <div className='text-sm'>
+                  Don’t have an account?
+                  <QButton
+                    type={EButtonType.text}
+                    className='!text-sm px-1 text-blue-500 font-semibold'
+                    onClick={handleEmitSignUpModal}>
+                    Sign Up
+                  </QButton>
+                </div>
               </div>
               <QButton
                 onClick={handleSubmit(onSubmit)}
                 type={EButtonType.primary}
-                className='w-full rounded-3xl py-2 mt-3 !text-lg'>
+                className='w-full rounded-3xl py-2 mt-3 !text-lg shadow-primary'>
                 Sign In
               </QButton>
             </Form>

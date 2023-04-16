@@ -9,7 +9,7 @@ import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { GoogleButton } from '@/contexts/auth/authGoogle'
 import { useLoadingContext } from '@/contexts/loading/LoadingContext'
-import { Auth } from '@/pages/api/auth'
+import { Auth } from '@/pages/api/user/auth'
 import { EButtonType, EInputType, ENotificationType } from '@/types'
 import { Emitter, validationMessages } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -70,7 +70,7 @@ const SignUpModal = () => {
         .string({
           required_error: validationMessages.required('Password'),
         })
-        .min(MIN_LENGTH_PASSWORD, validationMessages.username(MIN_LENGTH_PASSWORD))
+        .min(MIN_LENGTH_PASSWORD, validationMessages.password(MIN_LENGTH_PASSWORD))
         .max(MAX_LENGTH_PASSWORD),
       confirmPassword: z
         .string({
@@ -169,7 +169,7 @@ const SignUpModal = () => {
               <QButton
                 onClick={handleSubmit(onSubmit)}
                 type={EButtonType.primary}
-                className='w-full rounded-3xl py-2 mt-3 !text-lg'>
+                className='w-full rounded-3xl py-2 mt-3 !text-lg shadow-primary'>
                 Sign Up
               </QButton>
             </Form>

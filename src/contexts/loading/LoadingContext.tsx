@@ -1,5 +1,5 @@
+import Loading from '@/components/base/loading/Loading'
 import { createContext, useContext, useState } from 'react'
-import styles from './LoadingContext.module.css'
 
 interface ILoadingContext {
   isLoading: boolean
@@ -17,16 +17,7 @@ const LoadingProvider = ({ children }: { children: JSX.Element }) => {
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       {children}
-      {isLoading && (
-        <>
-          <div className={`${styles['overlay']}`} />
-          <div className={`${styles['loader']}`}>
-            <div className={`${styles['one']} ${styles['inner']}`} />
-            <div className={`${styles['two']} ${styles['inner']}`} />
-            <div className={`${styles['three']} ${styles['inner']}`} />
-          </div>
-        </>
-      )}
+      {isLoading && <Loading />}
     </LoadingContext.Provider>
   )
 }

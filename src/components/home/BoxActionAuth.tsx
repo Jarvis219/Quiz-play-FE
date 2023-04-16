@@ -22,7 +22,7 @@ const BoxActionAuth = () => {
         </QButton>
         <span className='w-1.5 h-1.5 rounded-full bg-violet-600'></span>
         <QButton type={EButtonType.text} className='!text-sm' onClick={handleOpenSignUpModal}>
-          <span className='text-violet-500 font-semibold'>Sign In</span>
+          <span className='text-violet-500 font-semibold'>Sign Up</span>
         </QButton>
       </div>
     </section>

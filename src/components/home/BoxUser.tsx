@@ -1,4 +1,4 @@
-import { videoUrl } from '@/constants'
+import { RouterClient, videoUrl } from '@/constants'
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { EButtonType } from '@/types'
 import { shortenText } from '@/utils'
@@ -20,11 +20,12 @@ const BoxUser = () => {
           <video width='32' height='32' src={videoUrl.avatar} className='rounded-full' autoPlay={true} loop={true} />
         )}
         <span className='mr-6'>
-          {shortenText(user?.user.full_name ?? '', 30) || shortenText(user?.user.username ?? '', 30)}
+          {shortenText(`${user?.user.first_name} ${user?.user.last_name}` ?? '', 30) ||
+            shortenText(user?.user.username ?? '', 30)}
         </span>
       </div>
       <div className='flex justify-center items-center gap-x-1 mt-1'>
-        <QButton type={EButtonType.text} className='!text-sm'>
+        <QButton type={EButtonType.text} className='!text-sm' href={RouterClient.PROFILE_SETTINGS}>
           <span className='text-violet-500 font-semibold'>Edit profile</span>
         </QButton>
         <span className='w-1.5 h-1.5 rounded-full bg-violet-600'></span>

@@ -29,7 +29,8 @@ export class Auth {
   }
 
   static async registerViaUsername({
-    full_name,
+    first_name,
+    last_name,
     email,
     username,
     password,
@@ -38,7 +39,8 @@ export class Auth {
     avatar,
   }: IReisterViaUsername): Promise<IUser> {
     const { data } = await publicRequest.post('/auth/register/username', {
-      full_name,
+      first_name,
+      last_name,
       email,
       username,
       password,
@@ -59,5 +61,20 @@ export class Auth {
       token,
     })
     return data
+  }
+
+  static async resetPassword({ token, password }: { token: string; password: string }): Promise<boolean> {
+    const data = await publicRequest.post('/auth/reset-password', {
+      token,
+      password,
+    })
+    return !!data
+  }
+
+  static async forgotPassword({ email }: { email: string }): Promise<boolean> {
+    const data = await publicRequest.post('/auth/forgot-password', {
+      email,
+    })
+    return !!data
   }
 }

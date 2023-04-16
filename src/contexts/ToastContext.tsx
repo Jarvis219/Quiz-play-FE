@@ -1,7 +1,8 @@
+import { EMIITER_CODE } from '@/constants'
 import { ENotificationPlacement, ENotificationType, IToast, TOAST_DEFAULT_DURATION } from '@/types'
 import { Emitter } from '@/utils'
 import { notification } from 'antd'
-import { PropsWithChildren, createContext, useContext, useEffect } from 'react'
+import { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react'
 
 type TContext = {
   showToast: (toast: IToast) => void
@@ -28,10 +29,9 @@ const initToast: IToast = {
 // eslint-disable-next-line @typescript-eslint/ban-types
 const ToastProvider = (props: PropsWithChildren<{}>) => {
   const [api, contextHolder] = notification.useNotification()
+  const [toast, setToast] = useState<IToast>(initToast)
 
-  const showToast = (data: IToast) => {
-    const toast = { ...initToast, ...data, show: true }
-
+  useEffect(() => {
     if (!toast.show) return
 
     api[toast.type]({
@@ -43,11 +43,13 @@ const ToastProvider = (props: PropsWithChildren<{}>) => {
       className: toast.className,
       placement: toast.placement,
     })
-  }
+  }, [toast])
+
+  const showToast = (data: IToast) => setToast({ ...toast, ...data, show: true })
 
   useEffect(() => {
-    Emitter.on('toast', showToast)
-  })
+    Emitter.on(EMIITER_CODE.TOAST, showToast)
+  }, [])
 
   return (
     <ToastContext.Provider value={{ showToast }}>

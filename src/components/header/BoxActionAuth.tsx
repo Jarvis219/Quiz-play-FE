@@ -14,7 +14,7 @@ const BoxActionAuth = () => {
       <QButton type={EButtonType.text} className='!text-sm' onClick={handleOpenSignInModal}>
         Sign In
       </QButton>
-      <QButton type={EButtonType.primary} className='!text-sm' onClick={handleOpenSignUpModal}>
+      <QButton type={EButtonType.primary} className='!text-sm shadow-primary' onClick={handleOpenSignUpModal}>
         Sign Up
       </QButton>
     </>
