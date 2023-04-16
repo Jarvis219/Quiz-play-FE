@@ -66,6 +66,7 @@ body {
 
 .ant-form-item {
   margin-bottom: 0;
+  width: 100%;
 }
 
 /**  custom link underline **/
