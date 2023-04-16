@@ -36,6 +36,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  @apply text-gray-700;
 }
 
 /**
