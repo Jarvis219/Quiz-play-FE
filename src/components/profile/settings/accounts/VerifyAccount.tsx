@@ -1,7 +1,7 @@
 import QButton from '@/components/base/QButton'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
 import { Auth } from '@/pages/api/user/auth'
 import { EButtonType, ENotificationType } from '@/types'
 import { CheckCircleOutlined } from '@ant-design/icons'

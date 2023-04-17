@@ -8,7 +8,7 @@ interface IProps {
   children: ReactNode
 }
 
-const useWithVerifyAccount = ({ children }: IProps) => {
+const withVerifyAccount = ({ children }: IProps) => {
   const { user } = useAuthContext()
   return user?.user.is_verified ? (
     children
@@ -22,4 +22,4 @@ const useWithVerifyAccount = ({ children }: IProps) => {
   )
 }
 
-export default useWithVerifyAccount
+export default withVerifyAccount

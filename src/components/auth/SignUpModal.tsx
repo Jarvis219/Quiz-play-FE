@@ -5,10 +5,10 @@ import {
   MIN_LENGTH_PASSWORD,
   MIN_LENGTH_USERNAME,
 } from '@/constants'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { GoogleButton } from '@/contexts/auth/authGoogle'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
 import { Auth } from '@/pages/api/user/auth'
 import { EButtonType, EInputType, ENotificationType } from '@/types'
 import { Emitter, validationMessages } from '@/utils'

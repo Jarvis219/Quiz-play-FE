@@ -3,6 +3,7 @@ import { useAuthContext } from '@/contexts/auth/authContext'
 import { Input } from 'antd'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { memo } from 'react'
 
 const UserMenu = dynamic(() => import('./UserMenu'), { ssr: false })
 const BoxActionAuth = dynamic(() => import('./BoxActionAuth'), { ssr: false })
@@ -28,4 +29,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default memo(Header)

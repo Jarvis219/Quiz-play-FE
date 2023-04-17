@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { ReactNode, createContext, useContext, useState } from 'react'
 import { useEffectOnce } from 'usehooks-ts'
-import { useLoadingContext } from '../loading/LoadingContext'
+import { useLoadingContext } from '../LoadingContext'
 
 const SignUpModal = dynamic(() => import('@/components/auth/SignUpModal'), { ssr: false })
 const SignInModal = dynamic(() => import('@/components/auth/SignInModal'), { ssr: false })

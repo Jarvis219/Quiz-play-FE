@@ -1,7 +1,7 @@
 import { EMIITER_CODE, MAX_LENGTH_PASSWORD, MIN_LENGTH_PASSWORD, RouterClient } from '@/constants'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
 import { Main, Meta } from '@/layouts'
 import { EButtonType, EInputType, ENotificationType } from '@/types'
 import { Emitter, validationMessages } from '@/utils'

@@ -1,7 +1,7 @@
 import { RouterClient } from '@/constants'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
 import { ENotificationType } from '@/types'
 import { IUserDetail } from '@/types/user'
 import { useRouter } from 'next/router'

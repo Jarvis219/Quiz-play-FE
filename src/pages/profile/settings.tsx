@@ -1,7 +1,7 @@
-import useWithVerifyAccount from '@/components/profile/settings/accounts/useWithVerifyAccount'
+import withVerifyAccount from '@/components/profile/settings/accounts/withVerifyAccount'
 import { RouterClient } from '@/constants'
 import { useAuthContext } from '@/contexts/auth/authContext'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { Main, Meta } from '@/layouts'
 import { UserOutlined } from '@ant-design/icons'
 import dynamic from 'next/dynamic'
@@ -64,7 +64,7 @@ const settings = () => {
           <UserOutlined /> Account settings
         </h2>
         <div className='mt-6 flex flex-col gap-5'>
-          {useWithVerifyAccount({ children: <UpdatePassword /> })}
+          {withVerifyAccount({ children: <UpdatePassword /> })}
           <VerifyAccount />
           <Logout />
         </div>

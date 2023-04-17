@@ -1,6 +1,6 @@
+import LoadingProvider from '@/contexts/LoadingContext'
 import ToastProvider from '@/contexts/ToastContext'
 import AuthProvider from '@/contexts/auth/authContext'
-import LoadingProvider from '@/contexts/loading/LoadingContext'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 

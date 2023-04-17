@@ -3,6 +3,7 @@ import { EButtonType } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from 'antd'
 import dynamic from 'next/dynamic'
+import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -49,4 +50,4 @@ const Overview = () => {
   )
 }
 
-export default Overview
+export default memo(Overview)

@@ -1,13 +1,13 @@
 import { EMIITER_CODE } from '@/constants'
+import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
-import { useLoadingContext } from '@/contexts/loading/LoadingContext'
 import { Auth } from '@/pages/api/user/auth'
 import { EButtonType, ENotificationType } from '@/types'
 import { Emitter, validationMessages } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from 'antd'
 import dynamic from 'next/dynamic'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from 'usehooks-ts'
 import { z } from 'zod'
@@ -103,4 +103,4 @@ const ForgotPasswordModal = () => {
   )
 }
 
-export default ForgotPasswordModal
+export default memo(ForgotPasswordModal)
