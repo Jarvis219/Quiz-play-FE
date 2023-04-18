@@ -119,7 +119,7 @@ const Avatar = () => {
               <div className='w-full'>
                 <h2>Avatar setting</h2>
                 <p className='text-sm text-gray-400'>
-                  You can upload a JPG, GIF or PNG file. The maximum file size is 50MB.
+                  You can upload a JPG, GIF or PNG file. The maximum file size is 50MB or choose an avatar from the list
                 </p>
                 <p className='text-sm text-gray-400'>
                   <span className='text-yellow-500'>Note:</span> If you upload a new avatar, your old avatar will be
