@@ -3,7 +3,7 @@ import { checkSizeImage, checkTypeImage, getBase64, shortenText } from '@/utils'
 import { PlusOutlined } from '@ant-design/icons'
 import { Modal, Upload, UploadFile } from 'antd'
 import { RcFile } from 'antd/es/upload'
-import { memo, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import { Control, Controller, UseFormSetError } from 'react-hook-form'
 import QHelperText from './QHelperText'
 
@@ -14,10 +14,10 @@ interface IQUploadFileProps {
   name: string
   maxCount?: number
   round?: boolean
-  defaultValue?: UploadFile[]
+  defaultValue?: UploadFile[] | string[]
 }
 
-const QUploadFile = ({ maxCount = 3, round = false, name, control, setError, defaultValue }: IQUploadFileProps) => {
+const QUploadFile = ({ maxCount = 1, round = false, name, control, setError, defaultValue }: IQUploadFileProps) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -26,7 +26,7 @@ const QUploadFile = ({ maxCount = 3, round = false, name, control, setError, def
     () =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (file: any[]): UploadFile[] =>
-        file.map((item) => ({
+        file?.map((item) => ({
           uid: item.uid || item,
           name: item.name || item,
           status: item.status || STATUS_DEFAULT,
@@ -51,30 +51,29 @@ const QUploadFile = ({ maxCount = 3, round = false, name, control, setError, def
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange: any = useMemo(
-    () =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ({ fileList, onChange }: { fileList: any; onChange: (...event: any[]) => void }) => {
-        for (const i of fileList) {
-          if (!checkTypeImage(i)) {
-            setError(name, {
-              type: 'image',
-              message: 'File type is not image',
-            })
-            return
-          }
-
-          if (!checkSizeImage(i)) {
-            setError(name, {
-              type: 'image',
-              message: `File size is too large. Maximum size is ${MAX_SIZE}`,
-            })
-            return
-          }
+  const handleChange: any = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ({ fileList, onChange }: { fileList: any; onChange: (...event: any[]) => void }) => {
+      for (const i of fileList) {
+        if (!checkTypeImage(i)) {
+          setError(name, {
+            type: 'image',
+            message: 'File type is not image',
+          })
+          return
         }
 
-        onChange(fileList)
-      },
+        if (!checkSizeImage(i)) {
+          setError(name, {
+            type: 'image',
+            message: `File size is too large. Maximum size is ${MAX_SIZE}`,
+          })
+          return
+        }
+      }
+
+      onChange(fileList)
+    },
     []
   )
 
@@ -88,11 +87,11 @@ const QUploadFile = ({ maxCount = 3, round = false, name, control, setError, def
           <>
             <Upload
               listType={round ? 'picture-circle' : 'picture-card'}
-              fileList={transformImageControl(field.value)}
+              fileList={transformImageControl(field?.value) || []}
               onPreview={handlePreview}
               multiple={maxCount > 1}
               onChange={(e) => handleChange({ fileList: e.fileList, onChange: field.onChange })}>
-              {maxCount && field.value.length >= maxCount ? null : (
+              {maxCount && field?.value?.length >= maxCount ? null : (
                 <div className='text-sm'>
                   <PlusOutlined />
                   <p>Upload</p>

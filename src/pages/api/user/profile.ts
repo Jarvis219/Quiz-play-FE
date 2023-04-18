@@ -1,22 +1,15 @@
-import { publicRequest } from '@/services'
+import { fetcher } from '@/services'
 import { IUpdateProfile, IUserDetail } from '@/types/user'
+import { transformFormDataRequestBody } from '@/utils'
 
 export class Profile {
-  static async updateProfile({
-    first_name,
-    last_name,
-    username,
-    phone_number,
-    address,
-    avatar,
-  }: IUpdateProfile): Promise<IUserDetail> {
-    const { data } = await publicRequest.patch('/user/update/profile', {
-      first_name,
-      last_name,
-      username,
-      phone_number,
-      address,
-      avatar,
+  static async updateProfile(body: IUpdateProfile): Promise<IUserDetail> {
+    const data = await fetcher('/user/update/profile', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: transformFormDataRequestBody(body),
     })
     return data
   }

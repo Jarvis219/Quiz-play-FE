@@ -1,3 +1,7 @@
+type ObjectWithKeys<T> = {
+  [key: string]: T
+}
+
 /**
  * Filter an array by a unique value based on a callback function.
  * @param array Array to filter
@@ -72,4 +76,40 @@ export function shortenText(text: string, maxLength: number): string {
     return text
   }
   return text.slice(0, maxLength) + '...'
+}
+
+// Returns an object that contains all the properties of the first object that do not have a truthy value for the given predicate function.
+// The function takes an object and a predicate function, which takes a value and a key as arguments and returns a boolean.
+// The function iterates through the properties of the object and adds them to a new object if the predicate function returns false.
+// The predicate function is used to determine whether to include a property in the result object.
+
+export function omitBy<T>(obj: ObjectWithKeys<T>, predicate: (value: T, key: string) => boolean): ObjectWithKeys<T> {
+  const result: ObjectWithKeys<T> = {}
+
+  for (const key in obj) {
+    if (!predicate(obj[key], key)) {
+      result[key] = obj[key]
+    }
+  }
+
+  return result
+}
+
+// This function is used to check if a value is undefined. It will return true if it is undefined and false if it is not.
+// The function is called isUndefined, and it takes a value as a parameter. The value can be any type of data.
+// The function will return a boolean value, true or false.
+// This function is used to check if a value is undefined, and it is used in the following file: src/blah/blah.ts
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isUndefined(value: any): value is undefined {
+  return typeof value === 'undefined'
+}
+
+// This function iterates over an object and calls the iteratee function
+// with the value of each property and the property name as arguments.
+// The iteratee function can modify the value of the property.
+export function each<T>(obj: ObjectWithKeys<T>, iteratee: (value: T, key: string) => void): void {
+  for (const key in obj) {
+    iteratee(obj[key], key)
+  }
 }

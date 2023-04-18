@@ -1,7 +1,7 @@
 import { EMIITER_CODE } from '@/constants'
 import { ENotificationType } from '@/types'
 import { AppConfig, Emitter, getJwtToken } from '@/utils'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 // This is a comment describing the code below.
 // -- It creates a new axios instance, and sets the base URL
@@ -51,3 +51,17 @@ publicRequest.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+/**
+ * @description This function is responsible for fetching data from the API.
+ * @param {string} url - The url of the API endpoint.
+ * @param {AxiosRequestConfig} config - The configuration object for the request.
+ * @returns {Promise<any>} - The data returned by the API.
+ * @throws {Error} - The error thrown by the API.
+ */
+export const fetcher = (url: string, config: AxiosRequestConfig = {}) =>
+  publicRequest(url, config)
+    .then((res) => res?.data)
+    .catch((err) => {
+      throw err
+    })

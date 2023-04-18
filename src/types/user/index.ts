@@ -30,6 +30,6 @@ export interface IUpdateProfile {
   last_name?: string
   phone_number?: string
   address?: string
-  avatar?: string
+  avatar?: string | File
   username?: string
 }
