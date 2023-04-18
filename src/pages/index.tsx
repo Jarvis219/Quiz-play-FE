@@ -1,8 +1,5 @@
 import Overview from '@/components/home/Overview'
 import { Main, Meta } from '@/layouts'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (

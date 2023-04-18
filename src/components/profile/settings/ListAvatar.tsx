@@ -40,8 +40,8 @@ const ListAvatar = ({ url, setUrl }: IProps) => {
           <div
             onClick={() => handleSelectAvatar(avatar.url)}
             key={avatar.id}
-            className={`w-full h-32 bg-white rounded-lg flex flex-col justify-center items-center cursor-pointer hover:shadow-border-green ${
-              avatar.url === selectedAvatar ? 'shadow-border-orange bg-orange-100' : 'shadow-border'
+            className={`w-full h-32 bg-white rounded-lg flex flex-col justify-center items-center cursor-pointer hover:shadow-green ${
+              avatar.url === selectedAvatar ? 'shadow-orange bg-orange-100' : 'shadow-gray'
             }`}>
             <QImage src={avatar.url} width={96} height={96} />
             <Radio

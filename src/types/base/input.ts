@@ -10,6 +10,7 @@ export enum EInputType {
 }
 
 export interface IInputElementProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<any, string>
   error: FieldError | undefined
 }

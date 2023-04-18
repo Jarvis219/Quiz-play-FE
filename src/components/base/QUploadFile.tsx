@@ -10,6 +10,7 @@ import QHelperText from './QHelperText'
 interface IQUploadFileProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setError: UseFormSetError<any>
   name: string
   maxCount?: number

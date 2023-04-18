@@ -25,6 +25,7 @@ const Overview = () => {
   })
 
   const onSubmit = ({ code }: { code: string }) => {
+    console.log('code: ', code)
     // TODO: handle submit
   }
 

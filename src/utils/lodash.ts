@@ -8,6 +8,7 @@ type ObjectWithKeys<T> = {
  * @param iteratee Callback function that returns a unique value of the array
  * @returns Filtered array
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function uniqBy<T>(array: T[], iteratee: (value: T) => any): T[] {
   const seen = new Set()
   return array.filter((value) => {
@@ -27,6 +28,7 @@ export function cloneDeep<T>(obj: T): T {
   if (obj === null || typeof obj !== 'object') {
     return obj
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const clonedObj: any = Array.isArray(obj) ? [] : {}
   for (const prop in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, prop)) {
@@ -53,6 +55,7 @@ export function uniqueArray(arr: string[]): string[] {
 //  - an empty array
 //  - an empty string
 //  - an object with no keys
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isEmpty(value: any): boolean {
   if (value === null || value === undefined) {
     return true
