@@ -2,7 +2,7 @@ import { fetcher, publicRequest } from '@/services'
 import { IAvatarResponse, ICreateAvatar } from '@/types'
 import { transformFormDataRequestBody } from '@/utils'
 
-export class Avatar {
+export class AvatarAPI {
   static async getAllAvatars(): Promise<IAvatarResponse[]> {
     const { data } = await publicRequest.get('/avatar')
     return data

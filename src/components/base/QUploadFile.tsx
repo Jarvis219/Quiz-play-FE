@@ -27,13 +27,13 @@ const QUploadFile = ({ maxCount = 1, round = false, name, control, setError, def
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (file: any[]): UploadFile[] =>
         file?.map((item) => ({
-          uid: item.uid || item,
-          name: item.name || item,
-          status: item.status || STATUS_DEFAULT,
-          url: item.url || item,
-          type: item.type || TYPE_DEFAULT,
-          size: item.size || SIZE_DEFAULT,
-          originFileObj: item.originFileObj || item,
+          uid: item?.uid || item,
+          name: item?.name || item,
+          status: item?.status || STATUS_DEFAULT,
+          url: item?.url || item,
+          type: item?.type || TYPE_DEFAULT,
+          size: item?.size || SIZE_DEFAULT,
+          originFileObj: item?.originFileObj || item,
         })),
     []
   )

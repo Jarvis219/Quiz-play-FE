@@ -1,3 +1,4 @@
+import Loading from '@/components/base/loading/Loading'
 import withVerifyAccount from '@/components/profile/settings/accounts/withVerifyAccount'
 import { RouterClient } from '@/constants'
 import { useAuthContext } from '@/contexts/auth/authContext'
@@ -6,7 +7,7 @@ import { Main, Meta } from '@/layouts'
 import { UserOutlined } from '@ant-design/icons'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 
 const PandaIcon = dynamic(() => import('@/components/base/icons/PandaIcon'), { ssr: false })
 const Avatar = dynamic(() => import('@/components/profile/settings/Avatar'), { ssr: false })
@@ -48,27 +49,29 @@ const settings = () => {
         />
       }>
       <h1 className='text-center text-2xl font-normal'>Settings</h1>
-      <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white'>
-        <h2 className='flex items-center gap-1 text-yellow-500 font-medium text-base'>
-          <PandaIcon /> Profile
-        </h2>
-        <div className='mt-6 flex flex-col gap-5'>
-          <Avatar />
-          <Username />
-          <Name />
-          <PhoneAndAddress />
-        </div>
-      </section>
-      <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white mt-8'>
-        <h2 className='flex items-center gap-1 font-medium text-base'>
-          <UserOutlined /> Account settings
-        </h2>
-        <div className='mt-6 flex flex-col gap-5'>
-          {withVerifyAccount({ children: <UpdatePassword /> })}
-          <VerifyAccount />
-          <Logout />
-        </div>
-      </section>
+      <Suspense fallback={<Loading />}>
+        <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white'>
+          <h2 className='flex items-center gap-1 text-yellow-500 font-medium text-base'>
+            <PandaIcon /> Profile
+          </h2>
+          <div className='mt-6 flex flex-col gap-5'>
+            <Avatar />
+            <Username />
+            <Name />
+            <PhoneAndAddress />
+          </div>
+        </section>
+        <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white mt-8'>
+          <h2 className='flex items-center gap-1 font-medium text-base'>
+            <UserOutlined /> Account settings
+          </h2>
+          <div className='mt-6 flex flex-col gap-5'>
+            {withVerifyAccount({ children: <UpdatePassword /> })}
+            <VerifyAccount />
+            <Logout />
+          </div>
+        </section>
+      </Suspense>
     </Main>
   )
 }
