@@ -4,10 +4,10 @@ import { IUser } from '@/types/user'
 import { getJwtToken } from '@/utils'
 
 export class Auth {
-  static async init(): Promise<IUser> {
+  static async init(token?: string): Promise<IUser> {
     const { data } = await request.get('/auth/init/me', {
       headers: {
-        Authorization: `Bearer ${getJwtToken()}`,
+        Authorization: `Bearer ${token ?? getJwtToken()}`,
       },
     })
     return data
