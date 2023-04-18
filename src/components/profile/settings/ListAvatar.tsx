@@ -32,7 +32,7 @@ const ListAvatar = ({ url, setUrl }: IProps) => {
   }
 
   return (
-    <section className='mt-4'>
+    <section className='mt-8 p-1 max-h-[580px] overflow-y-auto scroll-custom'>
       <Radio.Group
         value={selectedAvatar}
         className='grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-3 gap-5 place-items-center'>

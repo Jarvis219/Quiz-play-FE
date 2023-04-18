@@ -1,5 +1,6 @@
 import Loading from '@/components/base/loading/Loading'
-import { createContext, useContext, useState } from 'react'
+import Router from 'next/router'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface ILoadingContext {
   isLoading: boolean
@@ -13,6 +14,16 @@ const LoadingContext = createContext<ILoadingContext>({
 
 const LoadingProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState(false)
+  useEffect(() => {
+    Router.events.on('routeChangeStart', () => setIsLoading(true))
+    Router.events.on('routeChangeComplete', () => setIsLoading(false))
+    Router.events.on('routeChangeError', () => setIsLoading(false))
+    return () => {
+      Router.events.off('routeChangeStart', () => setIsLoading(true))
+      Router.events.off('routeChangeComplete', () => setIsLoading(false))
+      Router.events.off('routeChangeError', () => setIsLoading(false))
+    }
+  }, [])
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>

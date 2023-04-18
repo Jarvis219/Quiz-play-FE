@@ -1,6 +1,6 @@
 export enum EUserRoles {
-  ADMIN = 'admin',
-  USER = 'user',
+  ADMIN = 'ADMIN',
+  PLAYER = 'PLAYER',
 }
 
 export interface IUserDetail {

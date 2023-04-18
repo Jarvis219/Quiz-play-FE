@@ -100,13 +100,13 @@ const Avatar = () => {
         <RightOutlined className='text-gray-400 text-xs flex flex-col justify-center items-center group-hover:text-yellow-500' />
       </section>
       <QModalLayout open={isModalOpen} onCancel={onCancel} width={650}>
-        <div ref={modalRef} className='py-8 relative'>
+        <div ref={modalRef} className='pb-8 pt-4 relative'>
           <CloseCircleOutlined
             className='absolute top-0 right-0 text-xl text-red-500 hover:text-red-600 cursor-pointer transition duration-300 hover:scale-105'
             onClick={onCancel}
           />
           <Suspense fallback={<Loading />}>
-            <div className='flex justify-start gap-2 h-[130px]'>
+            <div className='flex justify-start gap-2'>
               <div className='w-[150px]'>
                 <QUploadFile
                   name='avatar'
@@ -116,7 +116,7 @@ const Avatar = () => {
                   round
                 />
               </div>
-              <div className='w-full'>
+              <div className='w-full flex flex-col'>
                 <h2>Avatar setting</h2>
                 <p className='text-sm text-gray-400'>
                   You can upload a JPG, GIF or PNG file. The maximum file size is 50MB or choose an avatar from the list
@@ -126,7 +126,7 @@ const Avatar = () => {
                   deleted.
                 </p>
                 <QButton
-                  className='float-right mt-2 !text-base font-semibold text-white bg-green-500 !h-12 hover:!text-white'
+                  className='self-end mt-2 !text-base font-semibold text-white bg-green-500 !h-12 hover:!text-white'
                   onClick={handleSubmit(onSubmit)}>
                   Pick this avatar
                 </QButton>

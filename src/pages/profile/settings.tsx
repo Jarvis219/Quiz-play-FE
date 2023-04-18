@@ -50,7 +50,7 @@ const settings = () => {
       }>
       <h1 className='text-center text-2xl font-normal'>Settings</h1>
       <Suspense fallback={<Loading />}>
-        <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white'>
+        <section className='max-w-lg shadow-default rounded-lg mx-auto p-3 bg-white mt-6'>
           <h2 className='flex items-center gap-1 text-yellow-500 font-medium text-base'>
             <PandaIcon /> Profile
           </h2>
