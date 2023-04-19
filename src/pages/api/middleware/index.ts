@@ -4,7 +4,10 @@ import { AppConfig, isEmpty } from '@/utils'
 import { createClient } from 'redis'
 import { Auth } from '../user/auth'
 
-const redisUserStore = async (token: string): Promise<IUserDetail> => {
+/**
+ * @description Get user from redis
+ */
+const redisUserStore = async (token: string): Promise<IUserDetail | null> => {
   let user: IUserDetail | null
   const client = createClient({
     password: AppConfig.redisPassword,
@@ -19,10 +22,14 @@ const redisUserStore = async (token: string): Promise<IUserDetail> => {
   user = JSON.parse((await client.get(redisKey.user)) as string) as IUserDetail
 
   if (isEmpty(user)) {
-    user = (await Auth.init(token)).user
-    await client.set(redisKey.user, JSON.stringify(user), {
-      EX: TIME_CLEAR_CACHE,
-    })
+    try {
+      user = (await Auth.init(token)).user
+      await client.set(redisKey.user, JSON.stringify(user), {
+        EX: TIME_CLEAR_CACHE,
+      })
+    } catch (error) {
+      user = null
+    }
   }
 
   await client.disconnect()
@@ -31,13 +38,27 @@ const redisUserStore = async (token: string): Promise<IUserDetail> => {
 }
 
 export const isAuthenticatedAdmin = async ({ token }: { token: string }) => {
-  const user = await redisUserStore(token)
-  return user.role === EUserRoles.ADMIN
+  let isAdmin = false
+
+  try {
+    isAdmin = (await Auth.init(token)).user.role === EUserRoles.ADMIN
+  } catch (error) {
+    isAdmin = false
+  }
+
+  return isAdmin
 }
 
 export const isAuthenticatedPlayer = async ({ token }: { token: string }) => {
-  const user = await redisUserStore(token)
-  return user.role === EUserRoles.PLAYER
+  let isPlayer = false
+
+  try {
+    isPlayer = (await Auth.init(token)).user.role === EUserRoles.PLAYER
+  } catch (error) {
+    isPlayer = false
+  }
+
+  return isPlayer
 }
 
 export const redirectToHome = {
