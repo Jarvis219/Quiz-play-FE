@@ -1,12 +1,12 @@
-import { RouterClient } from '@/constants'
+import { RouterAdmin, RouterClient } from '@/constants'
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { EButtonType, ENotificationPlacement, EUserRoles } from '@/types'
 import { shortenText } from '@/utils'
 import { LoginOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-design/icons'
-import { Dropdown, MenuProps } from 'antd'
+import { Dropdown } from 'antd'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { memo, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 import QImage from '../base/QImage'
 
 const QButton = dynamic(() => import('../base/QButton'), { ssr: false })
@@ -16,7 +16,7 @@ const UserMenu = () => {
 
   const classes = 'flex items-center gap-x-2 hover:text-blue-600'
 
-  const items: MenuProps['items'] = [
+  const [items, setItems] = useState([
     {
       key: '2',
       label: (
@@ -35,20 +35,28 @@ const UserMenu = () => {
         </div>
       ),
     },
-  ]
+  ])
 
   useEffect(() => {
-    if (user?.user.role === EUserRoles.ADMIN)
-      items.unshift({
-        key: '1',
-        label: (
-          <div className={classes}>
-            <Link href={RouterClient.PROFILE_SETTINGS} passHref>
-              <MenuUnfoldOutlined /> Admin
-            </Link>
-          </div>
-        ),
-      })
+    const key = 'admin'
+    if (user?.user.role !== EUserRoles.ADMIN) return
+
+    const isAlreadyExist = items.find((item) => item?.key === key)
+
+    if (isAlreadyExist) return
+
+    const adminItem = {
+      key,
+      label: (
+        <div className={classes}>
+          <Link href={RouterAdmin.DASHBOARD} passHref>
+            <MenuUnfoldOutlined /> Admin
+          </Link>
+        </div>
+      ),
+    }
+
+    setItems([adminItem, ...items])
   }, [user?.user.role])
 
   return (

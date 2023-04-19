@@ -4,5 +4,5 @@ export const RouterClient = {
 }
 
 export const RouterAdmin = {
-  HOME: '/admin',
+  DASHBOARD: '/dashboard',
 }
