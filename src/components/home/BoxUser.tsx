@@ -2,11 +2,9 @@ import { RouterClient, videoUrl } from '@/constants'
 import { useAuthContext } from '@/contexts/auth/authContext'
 import { EButtonType } from '@/types'
 import { shortenText } from '@/utils'
-import dynamic from 'next/dynamic'
 import { memo } from 'react'
+import QButton from '../base/QButton'
 import QImage from '../base/QImage'
-
-const QButton = dynamic(() => import('../base/QButton'), { ssr: false })
 
 const BoxUser = () => {
   const { user } = useAuthContext()

@@ -2,7 +2,7 @@ import { useAuthContext } from '@/contexts/auth/authContext'
 import dynamic from 'next/dynamic'
 import { ReactNode } from 'react'
 
-const Comingsoon = dynamic(() => import('@/components/base/ComingSoon'), { ssr: false })
+const Comingsoon = dynamic(() => import('@/components/base/ComingSoon'))
 
 interface IProps {
   children: ReactNode

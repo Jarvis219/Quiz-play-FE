@@ -1,3 +1,4 @@
+import Spin from '@/components/base/loading/Spin'
 import { Auth } from '@/pages/api/user/auth'
 import { IUser, IUserDetail } from '@/types/user'
 import { getJwtToken, removeJwtToken, setJwtToken } from '@/utils'
@@ -7,9 +8,18 @@ import { ReactNode, createContext, useContext, useState } from 'react'
 import { useEffectOnce } from 'usehooks-ts'
 import { useLoadingContext } from '../LoadingContext'
 
-const SignUpModal = dynamic(() => import('@/components/auth/SignUpModal'), { ssr: false })
-const SignInModal = dynamic(() => import('@/components/auth/SignInModal'), { ssr: false })
-const ForgotPasswordModal = dynamic(() => import('@/components/auth/ForgotPasswordModal'), { ssr: false })
+const SignUpModal = dynamic(() => import('@/components/auth/SignUpModal'), {
+  ssr: false,
+  loading: () => <Spin />,
+})
+const SignInModal = dynamic(() => import('@/components/auth/SignInModal'), {
+  ssr: false,
+  loading: () => <Spin />,
+})
+const ForgotPasswordModal = dynamic(() => import('@/components/auth/ForgotPasswordModal'), {
+  ssr: false,
+  loading: () => <Spin />,
+})
 
 interface IAuthContext {
   user?: IUser

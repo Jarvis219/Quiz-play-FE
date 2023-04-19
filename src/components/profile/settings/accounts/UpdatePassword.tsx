@@ -6,7 +6,7 @@ import { EButtonType, ENotificationType } from '@/types'
 import dynamic from 'next/dynamic'
 import { memo } from 'react'
 
-const QButton = dynamic(() => import('@/components/base/QButton'), { ssr: false })
+const QButton = dynamic(() => import('@/components/base/QButton'))
 
 const UpdatePassword = () => {
   const { user } = useAuthContext()

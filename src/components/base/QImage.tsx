@@ -11,6 +11,7 @@ interface IQImageProps {
   className?: string
   unoptimized?: boolean
   lazy?: boolean
+  priority?: boolean
 }
 
 const QImage = ({
@@ -20,6 +21,7 @@ const QImage = ({
   height = 124,
   width = 168,
   unoptimized = false,
+  priority = false,
   lazy = true,
 }: IQImageProps) => {
   const classes = `aspect-square object-contain ${className}`
@@ -37,6 +39,7 @@ const QImage = ({
       height={height}
       unoptimized={unoptimized}
       loading={lazy ? 'lazy' : 'eager'}
+      priority={priority}
       className={classes}
       onError={() => setPhoto(imageUrl.defaultImage)}
     />

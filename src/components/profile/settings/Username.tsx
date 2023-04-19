@@ -1,5 +1,6 @@
 import QInput from '@/components/base/QInput'
 import QModalLayout from '@/components/base/QModalLayout'
+import Spin from '@/components/base/loading/Spin'
 import { MAX_LENGTH_USERNAME, MIN_LENGTH_USERNAME } from '@/constants'
 import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
@@ -16,7 +17,10 @@ import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from 'usehooks-ts'
 import { z } from 'zod'
 
-const QFooterModalAction = dynamic(() => import('@/components/base/QFooterModalAction'), { ssr: false })
+const QFooterModalAction = dynamic(() => import('@/components/base/QFooterModalAction'), {
+  ssr: false,
+  loading: () => <Spin />,
+})
 
 const Username = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)

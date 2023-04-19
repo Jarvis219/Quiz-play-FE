@@ -1,5 +1,6 @@
 import QInput from '@/components/base/QInput'
 import QModalLayout from '@/components/base/QModalLayout'
+import Spin from '@/components/base/loading/Spin'
 import { MAX_LENGTH_ADDRESS, MAX_LENGTH_PHONE_NUMBER, MIN_LENGTH_ADDRESS, MIN_LENGTH_PHONE_NUMBER } from '@/constants'
 import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
@@ -16,7 +17,10 @@ import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from 'usehooks-ts'
 import { z } from 'zod'
 
-const QFooterModalAction = dynamic(() => import('@/components/base/QFooterModalAction'), { ssr: false })
+const QFooterModalAction = dynamic(() => import('@/components/base/QFooterModalAction'), {
+  ssr: false,
+  loading: () => <Spin />,
+})
 
 const PhoneAndAddress = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)

@@ -1,4 +1,4 @@
-import Loading from '@/components/base/loading/Loading'
+import Spin from '@/components/base/loading/Spin'
 import { useLoadingContext } from '@/contexts/LoadingContext'
 import { useToastContext } from '@/contexts/ToastContext'
 import { useAuthContext } from '@/contexts/auth/authContext'
@@ -8,15 +8,15 @@ import { validationMessages } from '@/utils'
 import { CloseCircleOutlined, RightOutlined } from '@ant-design/icons'
 import { zodResolver } from '@hookform/resolvers/zod'
 import dynamic from 'next/dynamic'
-import { Suspense, memo, useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from 'usehooks-ts'
 import { z } from 'zod'
 
-const ListAvatar = dynamic(() => import('./ListAvatar'), { ssr: false })
-const QUploadFile = dynamic(() => import('@/components/base/QUploadFile'), { ssr: false })
-const QButton = dynamic(() => import('@/components/base/QButton'), { ssr: false })
-const QModalLayout = dynamic(() => import('@/components/base/QModalLayout'), { ssr: false })
+const ListAvatar = dynamic(() => import('./ListAvatar'), { ssr: false, loading: () => <Spin /> })
+const QUploadFile = dynamic(() => import('@/components/base/QUploadFile'), { ssr: false, loading: () => <Spin /> })
+const QButton = dynamic(() => import('@/components/base/QButton'), { ssr: false, loading: () => <Spin /> })
+const QModalLayout = dynamic(() => import('@/components/base/QModalLayout'), { ssr: false, loading: () => <Spin /> })
 
 const Avatar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -105,36 +105,39 @@ const Avatar = () => {
             className='absolute top-0 right-0 text-xl text-red-500 hover:text-red-600 cursor-pointer transition duration-300 hover:scale-105'
             onClick={onCancel}
           />
-          <Suspense fallback={<Loading />}>
-            <div className='flex justify-start gap-2'>
-              <div className='w-[150px]'>
-                <QUploadFile
-                  name='avatar'
-                  control={control}
-                  setError={setError}
-                  defaultValue={[user?.user.avatar || '']}
-                  round
-                />
-              </div>
-              <div className='w-full flex flex-col'>
-                <h2>Avatar setting</h2>
-                <p className='text-sm text-gray-400'>
-                  You can upload a JPG, GIF or PNG file. The maximum file size is 50MB or choose an avatar from the list
-                </p>
-                <p className='text-sm text-gray-400'>
-                  <span className='text-yellow-500'>Note:</span> If you upload a new avatar, your old avatar will be
-                  deleted.
-                </p>
-                <QButton
-                  className='self-end mt-2 !text-base font-semibold text-white bg-green-500 !h-12 hover:!text-white'
-                  onClick={handleSubmit(onSubmit)}>
-                  Pick this avatar
-                </QButton>
-              </div>
+          <div className='flex justify-start gap-2'>
+            <div className='w-[150px]'>
+              <QUploadFile
+                name='avatar'
+                control={control}
+                setError={setError}
+                defaultValue={[user?.user.avatar || '']}
+                round
+              />
             </div>
+            <div className='w-full flex flex-col'>
+              <h2>Avatar setting</h2>
+              <p className='text-sm text-gray-400'>
+                You can upload a JPG, GIF or PNG file. The maximum file size is 50MB or choose an avatar from the list
+              </p>
+              <p className='text-sm text-gray-400'>
+                <span className='text-yellow-500'>Note:</span> If you upload a new avatar, your old avatar will be
+                deleted.
+              </p>
+              <QButton
+                className='hidden md:flex justify-end items-center self-end mt-2 !text-base font-semibold text-white bg-green-500 !h-12 hover:!text-white'
+                onClick={handleSubmit(onSubmit)}>
+                Pick this avatar
+              </QButton>
+            </div>
+          </div>
+          <QButton
+            className='md:hidden w-full flex justify-center items-center mt-2 !text-base font-semibold text-white bg-green-500 !h-12 hover:!text-white'
+            onClick={handleSubmit(onSubmit)}>
+            Pick this avatar
+          </QButton>
 
-            <ListAvatar url={avatarUrl ?? ''} setUrl={handleChangeAvatar} />
-          </Suspense>
+          <ListAvatar url={avatarUrl ?? ''} setUrl={handleChangeAvatar} />
         </div>
       </QModalLayout>
     </>
