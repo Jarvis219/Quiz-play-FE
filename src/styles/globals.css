@@ -119,3 +119,27 @@ body {
 .ant-radio-wrapper:hover .ant-radio-inner {
   @apply !border-orange-500;
 }
+
+.q-answer .ant-checkbox-inner {
+  @apply rounded-full border-[5px] border-green-400 !w-full !h-full;
+}
+
+.q-answer .ant-checkbox .ant-checkbox-inner::after {
+  @apply !top-[44%] !left-[6.5px] !h-[11px] !w-[6px];
+}
+
+.q-answer .ant-checkbox-checked .ant-checkbox-inner {
+  @apply !bg-green-400 !border-green-500;
+}
+
+.q-answer .ant-checkbox-checked::after {
+  @apply rounded-full border-[3px] border-green-500;
+}
+
+.q-answer .ant-checkbox {
+  @apply w-full h-full;
+}
+
+.q-answer textarea {
+  resize: none;
+}

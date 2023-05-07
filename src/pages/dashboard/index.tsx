@@ -1,8 +1,15 @@
+import { keyItemMenu } from '@/constants'
+import { Meta } from '@/layouts'
+import Admin from '@/layouts/Admin'
 import { GetServerSideProps } from 'next'
 import { isAuthenticatedAdmin, redirectToHome } from '../api/middleware'
 
 const DashboardPage = () => {
-  return <div>DashboardPage</div>
+  return (
+    <Admin selectKey={[keyItemMenu.dashboard]} meta={<Meta title='Quiz play admin' description='' />}>
+      DashboardPage
+    </Admin>
+  )
 }
 
 export default DashboardPage

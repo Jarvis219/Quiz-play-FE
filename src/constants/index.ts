@@ -1,3 +1,4 @@
+export * from './adminMenu'
 export * from './auth'
 export * from './classes'
 export * from './emitter'

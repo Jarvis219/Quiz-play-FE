@@ -4,6 +4,7 @@ export const AppConfig = {
   redisPort: process.env.NEXT_PRIVATE_REDIS_PORT,
   redisPassword: process.env.NEXT_PRIVATE_REDIS_PASSWORD,
   redisHost: process.env.NEXT_PRIVATE_REDIS_HOST,
+  tinyMCEApiKey: process.env.NEXT_PUBLIC_TINYMCE_API_KEY,
   site_name: 'Starter',
   title: 'Nextjs Starter',
   description: 'Starter code for your Nextjs Boilerplate with Tailwind CSS',

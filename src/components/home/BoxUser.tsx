@@ -18,8 +18,9 @@ const BoxUser = () => {
           <video width='32' height='32' src={videoUrl.avatar} className='rounded-full' autoPlay={true} loop={true} />
         )}
         <span className='mr-6'>
-          {shortenText(`${user?.user.first_name} ${user?.user.last_name}` ?? '', 30) ||
-            shortenText(user?.user.username ?? '', 30)}
+          {user?.user.first_name
+            ? shortenText(`${user.user.first_name} ${user?.user.last_name}` ?? '', 30)
+            : shortenText(user?.user.username ?? '', 30)}
         </span>
       </div>
       <div className='flex justify-center items-center gap-x-1 mt-1'>

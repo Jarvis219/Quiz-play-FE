@@ -5,4 +5,5 @@ export const RouterClient = {
 
 export const RouterAdmin = {
   DASHBOARD: '/dashboard',
+  CREATE_QUIZ: '/dashboard/quiz/create-quiz',
 }

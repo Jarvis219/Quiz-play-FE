@@ -1,4 +1,5 @@
 export * from './avatar'
 export * from './base'
+export * from './quiz'
 export * from './request'
 export * from './user'
